@@ -1,6 +1,7 @@
 //
 //  Main.cpp
 //
+// I reused my own code from Assignment 1 to create the particle generator that is why things are called square instead of particle.
 
 #include <cassert>
 #include <cmath>
@@ -25,13 +26,12 @@ using namespace std;
 
 namespace
 {
-	bool emitter_on = true;
-	int next_square = 0;
-	const int SQUARE_COUNT = 100;
-	int nx;
+	int next_square = 0; // Variable to keep track of which particle to go to next
+	const int SQUARE_COUNT = 100; // Variable that defines the particles that will exist on the screen
+	int nx; // Variable to convert world space into heightmap grid
 	int ny;
-	Square squares[SQUARE_COUNT];
-	ObjModel object;
+	Square squares[SQUARE_COUNT]; // Array of objects called squares that represent each individual particle
+
 	
 	const double FRAME_LENGTH = 1.0 / 60.0;
 	int g_previous_time = 0; // milliseconds
@@ -247,10 +247,12 @@ void schedule ()
 		squares[i].update(); // Update the position of a particle as it moves across the screen
 	}
 	next_square++;
+	
+	// If there are 100 squares reset to 0
 	if (next_square >= SQUARE_COUNT)
 		next_square = 0;
-	if (emitter_on)
-		squares[next_square].init(object, g_source);
+
+	squares[next_square].init(g_source); // Initialize new particles based on where the emitter is
 
 	if(elapsed_time < FRAME_LENGTH)
 		sleep(FRAME_LENGTH - elapsed_time);
@@ -293,21 +295,25 @@ void display ()
 			  LOOK_AT_POSITION.x, g_camera.y - 50.0, LOOK_AT_POSITION.z, 				// look at point
 			  0.0,                1.0,               0.0);						// up vector
 
+	// Convert to heightmap Grid
 	nx = (g_source.x / 1000) * (50 - 1);
 	ny = (g_source.z / 1000) * (50 - 1);
 
 	cout << "nx" << nx << endl;
 	cout << "ny" << ny << endl;
 
+
+	// make the height change at the location of the particle emitter
 	g_height_map.grid[ny][nx] += 0.25;
 
+	//Draw the heightmap
 	g_height_map.draw();
 	drawPole();
 	drawParticleSource();
 
 	drawText();
 	
-
+	// Display the particles
 	for (int i = 0; i < SQUARE_COUNT; i++)
 	{
 		if (squares[i].isAlive())

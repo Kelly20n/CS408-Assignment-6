@@ -12,11 +12,11 @@ public:
 	// declare your constructor here
 	Square()
 	{
-		init(object, pos);
+		init(pos);
 		age = 999999;
 	}
 	// declare your public member functions here
-	void init(ObjModel, Vector3);
+	void init(Vector3);
 	void update();
 	void display();
 	bool isAlive();
