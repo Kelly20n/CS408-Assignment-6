@@ -12,6 +12,6 @@ To run my project you will have to download the contents by clicking the green c
 
 Once done that you will unzip that file and open your program environment and create a new C++ project. I personally use Visual Studio 2022. Once your new project is
 created you will need to take the contents of the zip folder and place them in the project folder wherever that is on your computer. Make sure that everything stays in 
-one folder or else it won't run. If you use visual studio 2022 you will need to go to solution explorer and add existing items, make sure to add all files except .obj files.
+one folder or else it won't run. If you use visual studio 2022 you will need to go to solution explorer and add existing items, make sure to add all files except .obj files. Make sure to change from x64 to x86
 Upon running a stream of particles will come down from the emitting location, where the particles land the height map will be altered, the user can move the emitter around
 using the WASD keys.
